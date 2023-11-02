@@ -1,0 +1,32 @@
+{
+    "Analogs":[
+        {"Name":"SystemMode", "Value":0, "Description":"System Volume Mode, 0=Qsc, 1=DMPS, 2=TV Vol"},
+		
+        {"Name":"DmIn01FunctionId", "Value":5, "Description":"HDMI 3"},
+        {"Name":"DmIn02FunctionId", "Value":1, "Description":"PC "},
+        {"Name":"DmIn03FunctionId", "Value":2, "Description":"Wireless"},
+        {"Name":"DmIn07FunctionId", "Value":3, "Description":"HDMI 1"},
+        {"Name":"DmIn08FunctionId", "Value":4, "Description":"HDMI 2"},
+
+        {"Name":"DmIn03SharedFunctionId", "Value":101, "Description":""}
+	],
+    "Serials":[
+        {"Name":"DmIn01Name", "Value":"HDMI 3"},
+        {"Name":"DmIn02Name", "Value":"PC "},
+        {"Name":"DmIn03Name", "Value":"Wireless"},
+        {"Name":"DmIn04Name", "Value":""},
+        {"Name":"DmIn05Name", "Value":""},
+        {"Name":"DmIn06Name", "Value":""},
+        {"Name":"DmIn07Name", "Value":"HDMI 1"},
+        {"Name":"DmIn08Name", "Value":"HDMI 2"},
+
+        {"Name":"DmOut01Name", "Value":"Window 1"},
+        {"Name":"DmOut02Name", "Value":"Window 2"},
+        {"Name":"DmOut03Name", "Value":"Window 3"},
+        {"Name":"DmOut04Name", "Value":""},
+
+        {"Name":"VcComSpec", "Value":"rs232.115200.8.1.n.", "Description":"DMPS RS232 Specification"},
+        {"Name":"Display1ComSpec", "Value":"rs232.9600.8.1.n.", "Description":"DM-RMC-4KZ-Scaler-C DmOut1 RS232 Specification"},
+        {"Name":"Display2ComSpec", "Value":"rs232.9600.8.1.n.", "Description":"DM-RMC-4KZ-Scaler-C DmOut2 RS232 Specification"}
+    ]
+}

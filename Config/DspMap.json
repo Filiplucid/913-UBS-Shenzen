@@ -1,0 +1,50 @@
+{
+    "Digitals":[
+        {"Name":"DspMic01EnableControls", "Value":true},
+        {"Name":"DspMic02EnableControls", "Value":true},
+        {"Name":"DspMic03EnableControls", "Value":true},
+        {"Name":"DspMic04EnableControls", "Value":true},
+        {"Name":"DspMic05EnableControls", "Value":true},
+        {"Name":"DspMic06EnableControls", "Value":true},
+        {"Name":"DspMic07EnableControls", "Value":false},
+        {"Name":"DspMic08EnableControls", "Value":false},
+        {"Name":"DspMic09EnableControls", "Value":false},
+        {"Name":"DspMic10EnableControls", "Value":false},
+        {"Name":"DspMic11EnableControls", "Value":false},
+        {"Name":"DspMic12EnableControls", "Value":false},
+        {"Name":"DspMic13EnableControls", "Value":false},
+        {"Name":"DspMic14EnableControls", "Value":false},
+        {"Name":"DspMic15EnableControls", "Value":false},
+        {"Name":"DspMic16EnableControls", "Value":false},
+        {"Name":"DspAux01EnableControls", "Value":false}
+    ],
+    "Serials":[
+        {"Name":"DspHostname", "Value":"chaq-szuq-1001.avdevices.ubs.net"},
+		
+		{"Name":"DspMasterMute", "Value":"MasterMute"},
+		{"Name":"DspMasterLevel", "Value":"MasterLevel"},
+        {"Name":"DspMicMasterMute", "Value":"MicMasterMute"},
+        {"Name":"DspUsername", "Value":"Crestron"},
+        {"Name":"DspPin", "Value":"1234"},
+        
+        {"Name":"DspSnapshot01Name", "Value":"SystemPower"},
+        
+        {"Name":"DspMic01LevelControl", "Value":"Mic01Level"},
+        {"Name":"DspMic02LevelControl", "Value":"Mic02Level"},
+        {"Name":"DspMic03LevelControl", "Value":"Mic03Level"},
+        {"Name":"DspMic04LevelControl", "Value":"Mic04Level"},
+        {"Name":"DspMic05LevelControl", "Value":""},
+        {"Name":"DspMic06LevelControl", "Value":""},
+        {"Name":"DspMic07LevelControl", "Value":""},
+        {"Name":"DspAux01LevelControl", "Value":""},
+
+        {"Name":"DspMic01MuteControl", "Value":"Mic01Mute"},
+        {"Name":"DspMic02MuteControl", "Value":"Mic02Mute"},
+        {"Name":"DspMic03MuteControl", "Value":"Mic03Mute"},
+        {"Name":"DspMic04MuteControl", "Value":"Mic04Mute"},
+        {"Name":"DspMic05MuteControl", "Value":""},
+        {"Name":"DspMic06MuteControl", "Value":""},
+        {"Name":"DspMic07MuteControl", "Value":""},
+        {"Name":"DspAux01MuteControl", "Value":""}
+    ]
+}

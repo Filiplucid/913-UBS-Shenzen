@@ -1,0 +1,58 @@
+{
+    "Digitals":[
+        {"Name":"EnableVolumeControls", "Value":true},
+        {"Name":"EnableVC", "Value":false},
+        {"Name":"VcSpeakerTrackVisible", "Value":false}
+    ],
+    "Analogs":[
+        {"Name":"VcCameraCount", "Value":3}
+    ],
+    "Serials":[
+        {"Name":"RoomID", "Value":"", "Description":"Used for Hvac, Fusion and Service Identifiers"},
+        {"Name":"HvacBaseUrl", "Value":""},
+        {"Name":"HvacToken", "Value":""},
+        
+        {"Name":"Panel0x61Engine", "Value":"Engine_Config.txt"},
+        {"Name":"Panel0x61Title", "Value":"Lounge Area"},
+        {"Name":"Panel0x61Subtitle", "Value":""},
+        {"Name":"PanelTogglePages", "Value":"41;42;43;44;45;50;"},
+
+        {"Name":"DspFilename", "Value":"\\nvram\\DspMap.json"},
+        {"Name":"PowerControllerFilename", "Value":"\\nvram\\PowerControllerMap.json"},
+
+        {"Name":"RoomSetting1", "Value":"Room Mode"}, 
+
+		{"Name":"Display3Classname", "Value":"E2"},
+		{"Name":"Display3Dll", "Value":"Barco"},
+		{"Name":"Display3Config", "Value":{
+			"Name":"Barco", 
+			"DisplayId":3, 
+			"Hostname":"cgpb-szuq-1001.avdevices.ubs.net", 
+			"Port":9878
+		}},
+		
+        {"Name":"Camera1Hostname", "Value":""},
+        {"Name":"Camera2Hostname", "Value":""},
+        {"Name":"Camera3Hostname", "Value":""},
+
+        {"Name":"ServiceUrl", "Value":""},
+		{"Name":"InfoBuildingURL", "Value":""},
+		{"Name":"InfoHotlineURL", "Value":""},
+
+        {"Name":"ClockAudioHostname01", "Value":""},
+        {"Name":"ClockAudioHostname02", "Value":""},
+        {"Name":"ClockAudioHostname03", "Value":""},
+        {"Name":"ClockAudioHostname04", "Value":""},
+		
+        {"Name":"VcCameraPreset1", "Value":"Preset1"},
+        {"Name":"VcCameraPreset2", "Value":"Preset2"},
+        {"Name":"VcCameraPreset3", "Value":"Preset3"},
+        {"Name":"VcCameraPreset4", "Value":"Preset4"},
+        {"Name":"VcCameraPreset5", "Value":"Preset5"},
+        {"Name":"VcCameraPreset6", "Value":"Preset6"},
+        {"Name":"VcCameraPreset7", "Value":"Preset7"},
+        {"Name":"VcCameraPreset8", "Value":"Preset8"},
+        {"Name":"VcCameraPreset9", "Value":"Preset9"},
+        {"Name":"VcCameraPreset10", "Value":"Preset10"}
+    ]
+}

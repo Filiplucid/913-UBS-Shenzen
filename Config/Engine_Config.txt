@@ -1,0 +1,505 @@
+/*
+Dual Single:
+To Adjust to single dispay Change option 61 so that the IF01 and IF02 are reversed
+Codec Options:
+For B Type Rooms Hide option 3 & 4 using hide=1
+For Removing IPTV Hide option 2 using hide=1
+If you only have TV buttons hide option 21 & 22 using hide=1
+Engineering Functions:
+Use Function 35 for B1 & D1 and Function 42 for B2 & D2 using hide=1 to hide the one you're not using
+Unhide Function 38 when using a powercontroller. See Stan for more details.
+Bus 01 Switching
+Bus 02 IPTV
+Bus 03 Player
+Bus 04 IF Switching
+Bus 05 Window Controls
+Bus 06 Lighting Scene Select
+Bus 07 Service
+Bus 08 VC Controls
+Bus 09 PowerControllers
+*/
+
+<pin>UserPin="1980" EngineerPin="1988"</pin>
+
+<head name="Core v3.2.6" homepage=51>*O=101</head>
+
+<power>
+	<powerON>
+	</powerON>
+	<powerOFF>
+		*C4.0=IF:04ON[SystemOff]
+		*C4.0=IF:05ON[Room is OFF]
+		*C1.1=UI02:1000[10s Cooldown]
+		*D=1:OFF[Display1 Off]
+		*D=2:OFF[Display2 Off]
+		*D=3:OFF[Display3 Off]
+		*C8.1=VC04:10[Hangup All]
+		*C1.11=0:1[Null to Out1]
+		*C1.11=0:1[Null to Out2]
+		*C1.11=0:1[Null to Out3]
+		*C1.11=0:1[Null to Out4]
+		*C1.15=0:1[Null to Program Audio]
+		*C1.13=3:1[DmTx1 Disable Route]
+		*C1.13=3:2[DmTx2 Disable Route]
+		*C8.1=VC01:10[Turn off Codec]
+		*C8.1=Mic01:off[Turn off MicSubpage]
+		*C8.1=VC03:off[Codec Inactive]
+		*C8.1=VC11:10[Reset Coms]
+		*C1.31=2:1[DSP Set Snapshot 1 to Index 2 SnapshotSystemOff]
+		*O=101
+	</powerOFF>
+</power>
+
+// Options 1-20 SourceMenu
+<option id=01.01 group=1 icon="LAYOUT" name="Layout" mode=0 subO=416 hide=1>
+	*D=1:ON[Aoto Display]
+ </option>
+<option id=01.02 group=1 icon="SINGLE PRES" name="Presentation" mode=0 subO=81 hide=0>
+	*C5.43=1:1[Show Displays Connected to Output 1]
+	*C8.1=Mic01:on[Turn on MicSubpage]
+	*C8.1=VC03:off[Codec Inactive]
+	*D=3:1[Barco to Layout1]
+	*C4.0=IF:01ON[Single Presentation]	
+	*C4.0=IF:02OFF[Dual Presentation]	
+	*C4.0=IF:06OFF[Triple Presentation]	
+	*F=64*IF05 // Trigger Function - Snapshot inside	
+</option>
+ <option id=01.03 group=1 icon="DUAL PRES" name="Presentation" mode=0 subO=81 hide=0>
+	*C5.43=3:1[Show Displays Connected to Output 1,2]
+	*C8.1=Mic01:on[Turn on MicSubpage]
+	*C8.1=VC03:off[Codec Inactive]
+	*D=3:2[Barco to Layout2]	
+	*C4.0=IF:01OFF[Single Presentation]	
+	*C4.0=IF:02ON[Dual Presentation]	
+	*C4.0=IF:06OFF[Triple Presentation]	
+	*F=64*IF05 // Trigger Function - Snapshot inside	
+ </option> 
+
+<option id=01.04 group=1 icon="TRIPLE PRES" name="Presentation" mode=0 subO=81 hide=0>
+	*C5.43=7:1[Show Displays Connected to Output 1,2,3]
+	*C8.1=Mic01:on[Turn on MicSubpage]
+	*C8.1=VC03:off[Codec Inactive]
+	*D=3:3[Barco to Layout3]
+	*C4.0=IF:01OFF[Single Presentation]	
+	*C4.0=IF:02OFF[Dual Presentation]	
+	*C4.0=IF:06ON[Triple Presentation]	
+	*F=64*IF05 // Trigger Function - Snapshot inside	
+ </option> 
+
+<option id=01.200 group=1 icon="JOIN MEETING" name="OBTJ Call" mode=2 subO=101 hide=1>
+	*D=1:ON[Display1 ON]
+	*D=2:ON[Display2 ON]
+	*D=1:1[Display1 Input1]
+	*D=2:1[Display2 Input1]
+	*C1.11=1:1[Video to Preview_Video]
+	*C1.11=1:3[Video to Display1]
+	*C1.11=2:4[Video to Display2]
+	*C1.15=6:1[DSP Audio]
+		*C8.41=3:1[Set VC PresentationSource to 3]
+		*C8.41=1:2[Set VC MainVideoSource to 1]
+		*C8.41=1:3[Set VC SelectCamera to 1]
+		*C8.1=Mic01:on[Turn on MicSubpage]
+		*C8.1=VC02:10[Turn on Codec]
+		*C8.1=VC03:On[Codec Active]
+		*C8.0=VC10:10[JoinActiveBooking]
+	*F!%=53
+	*O%=5
+	*F=64*IF05 // Trigger Function - Snapshot inside
+	</option> 
+<option id=01.204 group=1 icon="VIDEO CALL"   name="Video Call" mode=2 subO=88 hide=1>
+	*D=1:ON[Display1 ON]
+	*D=2:ON[Display2 ON]
+	*D=1:1[Display1 Input1]
+	*D=2:1[Display2 Input1]
+	*C1.11=1:1[Video to Preview_Video]
+	*C1.11=1:3[Video to Display1]
+	*C1.11=2:4[Video to Display2]
+	*C1.15=6:1[DSP Audio]
+		*C8.41=3:1[Set VC PresentationSource to 3]
+		*C8.41=1:2[Set VC MainVideoSource to Camera 1]
+		*C8.41=1:3[Set VC SelectNearEndCamera to 1]
+		*C8.1=Mic01:on[Turn on MicSubpage]	   
+		*C8.1=VC02:10[Turn on Codec]
+		*C8.1=VC03:On[Codec Active]
+		*C4.0=IF:03OF[Set IF 03 Off VideoCall]
+		*C4.0=IF:04OF[SystemOn]
+	*F=64*IF05 // Trigger Function - Snapshot inside
+ </option>
+<option id=01.05 group=1 icon="AUDIO CALL"   name="Audio Call" mode=3 subO=97 hide=1>
+	*C8.1=Mic01:on[Turn on MicSubpage]
+	*C8.1=VC02:10[Turn on Codec]
+	*C8.1=VC03:On[Codec Active]
+	*C4.0=IF:03ON[Set IF 03 On AudioCall]
+	*F=64*IF05 // Trigger Function - Snapshot inside		
+ </option>
+<option id=01.06 group=6 icon="SERVICE CALL" name="Service Call" mode=4 hide=1>
+	*C7.0=Service01:10[RequestService]
+ </option>
+
+<option id=01.06 group=1 icon="" name="" hide=1></option>
+<option id=01.07 group=1 icon="" name="" hide=1></option>
+<option id=01.08 group=1 icon="" name="" hide=1></option>
+<option id=01.09 group=1 icon="" name="" hide=1></option>
+<option id=01.10 group=1 icon="" name="" hide=1></option>
+<option id=01.11 group=1 icon="" name="" hide=1></option>
+<option id=01.12 group=1 icon="" name="" hide=1></option>
+<option id=01.13 group=1 icon="" name="" hide=1></option>
+<option id=01.14 group=1 icon="" name="" hide=1></option>
+<option id=01.15 group=1 icon="" name="" hide=1></option>
+<option id=01.16 group=1 icon="" name="" hide=1></option>
+<option id=01.17 group=1 icon="" name="" hide=1></option>
+<option id=01.18 group=1 icon="" name="" hide=1></option>
+<option id=01.19 group=1 icon="" name="" hide=1></option>
+<option id=01.20 group=1 icon="" name="" hide=1></option>
+
+// Options 21-40 Specials
+<option id=01.21 group=2 name="TV" subO=82 hide=0>
+	*C2.0=IPTV_CAT01[Select Video Channels]
+ </option>
+<option id=01.22 group=2 name="Radio" subO=82 hide=0>
+	*C2.1=IPTV_CAT02[Select Radio Channels]
+ </option>
+
+// Options 41-60 Universal Effects All Engines
+<option id=01.41 group=3 name="Normal Mode" mode=0 hide=1></option>
+<option id=01.42 group=3 name="Expert Mode" mode=0 hide=1></option>
+<option id=01.43 group=3 name="Divisible Auto" mode=0 hide=1></option>
+<option id=01.44 group=3 name="Divisible Manual" mode=0 hide=1></option>
+<option id=01.45 group=8 name="Divisible Slave1 Join" subO=105 mode=0 hide=0>
+ </option>
+<option id=01.46 group=8 name="Divisible Slave2 Join" subO=105 mode=0 hide=1>
+ </option>
+<option id=01.47 group=8 name="Divisible Slave1 Divide" subO=105 mode=0 hide=0>
+ </option>
+<option id=01.48 group=8 name="Divisible Slave2 Divide" subO=99 mode=0 hide=1>
+</option>
+
+<option id=01.49 group=4 name="VC Camera 1" hide=1>
+	*C8.41=1:2[Set VC MainVideoSource to Camera 1]
+	*C8.41=1:3[Set VC SelectNearEndCamera to 1]
+ </option>
+<option id=01.50 group=4 name="VC Camera 2" hide=1>
+	*C8.41=2:2[Set VC MainVideoSource to Camera 2]
+	*C8.41=2:3[Set VC SelectNearEndCamera to 2]
+ </option>
+<option id=01.51 group=4 name="VC Camera 3" hide=1>
+	*C8.41=4:2[Set VC MainVideoSource to Camera 3]
+	*C8.41=3:3[Set VC SelectNearEndCamera to 3]
+ </option>
+<option id=01.52 group=4 name="VC Camera 4" hide=1>
+	*C8.41=4:2[Set VC MainVideoSource to Camera 4]
+	*C8.41=4:3[Set VC SelectNearEndCamera to 4]
+ </option>
+
+<option id=01.53 group=6 name="Service Call Cancel" hide=1></option>
+
+//Use *P=On or *P=Off in your tags. Should work with tag enables too.
+<option id=01.54 group=7 name="Timed On" hide=1>
+	*F=154
+</option>
+<option id=01.55 group=7 name="Timed Off" hide=1>
+	*P=Off
+</option>
+<option id=01.56 group=7 name="VC AnswerAll" hide=1>
+	*O=4
+</option>
+// Options 61-100 Barco Presets
+// Options 61-100 Barco Presets
+<option id=01.61 group=9 name="Single 1" hide=1>
+	*D=3:1[Barco to Layout1]
+ </option>
+ 
+<option id=01.62 group=9 name="Dual" hide=1>
+	*D=3:2[Barco to Layout2]
+ </option>
+ 
+<option id=01.63 group=9 name="Triple" hide=1>
+	*D=3:3[Barco to Layout3]
+ </option>
+
+// Options 101-XX Undefined Not Connected to UI
+
+<option id=01.101 group=4 name="StartupHeader" subO=100 hide=1>
+ </option>
+
+
+// VC Options --------------------------------------------------------------------------------------
+<option id=01.102 group=4 name="Audio Dial" hide=1>
+	*O=108*IF03
+	*C8.1=VC13:ON[DTMF]
+	*O=5*IF04
+</option>
+<option id=01.103 group=4 name="Audio Hangup" hide=1>
+	*C8.1=VC04:10[Hangup All]*IF03
+	*C8.1=VC06:10[Hangup Audio]
+	*O!%=4[EnableOption4]
+	*C8.1=VC13:OFF[DTMF]
+</option>
+<option id=01.104 group=4 name="Video Dial" hide=1>
+	*O%=3,5[DisableOption3&5]
+	*F!%=53[EnableFunction53]
+	*C8.1=VC14:ON[DTMF]
+	*O=4*IF04
+</option>
+<option id=01.105 group=4 name="Video Hangup" hide=1>
+	*C8.1=VC04:10[Hangup All]
+	*C8.1=VC14:OFF[DTMF]
+	*O!%=5[EnableOption5]
+	*F%=53[DisableFunction53]
+	*C4.0=IF:04ON[SystemOn]
+</option>
+<option id=01.106 group=4 name="OBTJ Active" hide=1>
+	*O!%=3[EnableOption3]
+</option>
+<option id=01.107 group=4 name="OBTJ Inactive" hide=1>
+	*O%=3[DisableOption3]
+</option>
+<option id=01.108 group=4 name="AudioCall Dial" hide=1>
+	*O%=3,4[DisableOption3&4]
+</option>
+
+// Functions 1-32 Presentation Functions
+// IF01 RoomMode JOIN   - 
+// IF02 RoomMode DIVIDE - 
+
+// icon - string on TP , name - internal
+// DP functions not in use - auto switching 
+
+<function id=01.01 group=1 icon="PC " name="PC" mode=0 hide=1>
+	*V[1]=2[VAR1 Video Route]
+	*V[2]=6[VAR2 Audio Route]
+	*F=151*IF01
+	*F=152*IF02
+	*F=153*IF06
+ </function>
+<function id=01.02 group=1 icon="Wireless" name="" mode=2 hide=1>
+	*V[1]=3[VAR1 Video Route]
+	*V[2]=8[VAR2 Audio Route]
+	*F=151*IF01
+	*F=152*IF02
+	*F=153*IF06
+ </function>
+<function id=01.03 group=1 icon="HDMI 1" name="" mode=2 hide=1>
+	*V[1]=7[VAR1 Video Route]
+	*V[2]=12[VAR2 Audio Route]
+	*C1.13=0:1[DmTx2 Auto Route]
+	*F=151*IF01
+	*F=152*IF02
+	*F=153*IF06
+ </function>
+<function id=01.04 group=1 icon="HDMI 2" name="" mode=2 hide=1>
+	*V[1]=8[VAR1 Video Route]
+	*V[2]=13[VAR2 Audio Route]
+	*C1.13=0:2[DmTx2 Auto Route]
+	*F=151*IF01
+	*F=152*IF02
+	*F=153*IF06
+ </function>
+<function id=01.05 group=1 icon="HDMI 3" name="" mode=2 hide=1>
+	*V[1]=1[VAR1 Video Route]
+	*V[2]=6[VAR2 Audio Route]
+	*F=151*IF01
+	*F=152*IF02
+	*F=153*IF06
+ </function>
+<function id=01.06 group=1 icon="" name="" mode=2 hide=1>
+	*V[1]=4[VAR1 Video Route]
+	*V[2]=9[VAR2 Audio Route]
+	*F=151*IF01
+	*F=152*IF02
+	*F=153*IF06
+ </function>
+<function id=01.07 group=1 icon="" name="" mode=2 hide=1>
+	*V[1]=1[VAR1 Video Route]
+	*V[2]=6[VAR2 Audio Route]
+	*F=151
+ </function>
+<function id=01.08 group=1 icon="" name="" mode=2 hide=1>
+	*V[1]=2[VAR1 Video Route]
+	*V[2]=7[VAR2 Audio Route]
+	*F=151
+ </function>
+<function id=01.09 group=1 icon="" name="" mode=0 hide=1> </function>
+<function id=01.10 group=1 icon="" name="" mode=0 hide=1> </function>
+<function id=01.11 group=1 icon="" name="" mode=0 hide=1> </function>
+<function id=01.12 group=1 icon="" name="" mode=0 hide=1> </function>
+<function id=01.13 group=1 icon="" name="" mode=0 hide=1> </function>
+<function id=01.14 group=1 icon="" name="" mode=0 hide=1> </function>
+<function id=01.15 group=1 icon="" name="" mode=0 hide=1> </function>
+<function id=01.16 group=1 icon="" name="" mode=0 hide=1> </function>
+<function id=01.17 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.18 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.19 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.20 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.21 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.22 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.23 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.24 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.25 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.26 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.27 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.28 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.29 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.30 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.31 group=1 icon="" name="" mode=0 hide=1></function>
+<function id=01.32 group=1 icon="" name="" mode=0 hide=1></function>
+
+// Functions 33-44 Engineering Functions
+<function id=01.33 group=3 icon="System" sub=351 hide=0></function>
+<function id=01.34 group=3 icon="Video" sub=352 hide=0></function>
+<function id=01.35 group=3 icon="Audio" sub=353 hide=1></function>
+<function id=01.36 group=3 icon="Health" sub=355 hide=0></function>
+<function id=01.37 group=3 icon="Comms" sub=356 hide=0></function>
+<function id=01.38 group=3 icon="Power" sub=357 hide=0></function>
+<function id=01.39 group=3 icon="Routing" sub=366 hide=1></function>
+<function id=01.40 group=3 icon="Timer" sub=364 hide=0></function>
+<function id=01.41 group=3 icon="DSP" sub=361 hide=0></function>
+<function id=01.43 group=3 icon="Enter" page=58 hide=0></function>
+<function id=01.44 group=3 icon="Exit" page=51 hide=0></function>
+
+// Functions 45-49 ToggleFunctions
+<function id=01.45 group=4 name="Home" page=51 hide=0>
+	//*C6.0=Lockers01:60000[Signal to LockerManager]
+ <context name="Lockers Pop-up" timeout="60000" ></context></function>
+ 
+<function id=01.46 group=4 name="Lights" page=51 hide=0>
+ <context sub=50 name="Lights Pop-up" timeout="60000" ></context></function>
+ 
+<function id=01.47 group=4 name="Support" page=51 hide=0>
+<context sub=43 name="Support Pop-up" timeout="10000" ></context></function>
+
+<function id=01.48 group=4 name="Building Info" page=51 hide=0>
+ <context sub=44 name="Building Info" timeout="30000" ></context></function>
+ 
+<function id=01.49 group=4 name="Hotline Info" page=51 hide=0>
+ <context sub=45 name="Hotline Information" timeout="30000" ></context></function>
+
+// Functions 50-54 VC Functions
+<function id=01.50 group=5 icon="Video Dial" sub=88 hide=0>*F=64*IF05 </function>
+<function id=01.51 group=5 icon="Camera" sub=84 hide=0></function>
+<function id=01.52 group=5 icon="Presentation" sub=86 hide=0></function>
+<function id=01.53 group=5 icon="Add Audio" sub=102 hide=0 disable=1></function>
+<function id=01.54 group=5 icon="More" sub=87 hide=0></function>
+
+// Functions 55-63 Spare
+
+// Startup Function
+<function id=01.64 group=1 name"Startup DSP Snapshots" hide=0>
+	*C1.31=1:1[DSP Set Snapshot 1 to Index 1 SnapshotSystemStart]
+	*C4.0=IF:05OF[Room is On]
+ </function>
+
+// Functions 65-100 Universal Functions Effects all Engines
+<function id=01.65 group=6 icon="Service Button" hide=1>
+	*C7.0=Service01:10[RequestService]
+ </function>
+<function id=01.66 group=6 icon="Service Cancel" hide=1></function>
+
+<function id=01.67 group=7 icon="HVAC Scene 1" hide=0></function>
+<function id=01.68 group=7 icon="HVAC Scene 2" hide=0></function>
+<function id=01.69 group=7 icon="HVAC Scene 3" hide=0></function>
+<function id=01.70 group=7 icon="HVAC Scene 4" hide=0></function>
+<function id=01.71 group=7 icon="HVAC Scene 5" hide=0></function>
+<function id=01.72 group=7 icon="HVAC Scene 6" hide=0></function>
+
+// Functions 101-132 Shared Functions
+<function id=01.101 group=2 icon="PC " name="PC" mode=0 hide=1>
+	*C1.11=3:2[Codec Content Video]
+	*C1.12=3:2[Codec Content Audio]
+ </function>
+<function id=01.102 group=2 icon="HDMI 1" name="" mode=2 hide=1>
+	*C1.11=5:2[Codec Content Video]
+	*C1.12=3:2[Codec Content Audio]
+ </function>
+<function id=01.103 group=2 icon="HDMI 2" name="" mode=2 hide=1>
+	*C1.11=6:2[Codec Content Video]
+	*C1.12=3:2[Codec Content Audio]
+	*C1.13=0:1[DmTx2 Auto Route]
+ </function>
+<function id=01.104 group=2 icon="HDMI 3" name="" mode=2 hide=1>
+	*C1.11=7:2[Codec Content Video]
+	*C1.12=3:2[Codec Content Audio]
+	*C1.13=0:2[DmTx2 Auto Route]
+ </function>
+<function id=01.105 group=2 icon="HDMI 4" name="" mode=2 hide=1>
+	*C1.11=8:2[Codec Content Video]
+	*C1.12=3:2[Codec Content Audio]
+ </function>
+<function id=01.106 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.107 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.108 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.109 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.110 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.111 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.112 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.113 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.114 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.115 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.116 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.117 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.118 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.119 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.120 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.121 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.122 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.123 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.124 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.125 group=1 icon="" name="" mode=2 hide=1> </function>
+<function id=01.126 group=1 icon="" name="" mode=2 hide=1> </function>
+<function id=01.127 group=1 icon="" name="" mode=2 hide=1> </function>
+<function id=01.128 group=1 icon="" name="" mode=2 hide=1> </function>
+<function id=01.129 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.130 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.131 group=2 icon="" name="" mode=0 hide=1> </function>
+<function id=01.132 group=2 icon="" name="" mode=0 hide=1> </function>
+
+
+// Presentation Context
+<function id=01.151 group=10 icon="" name="Display Route" mode=1 hide=1>
+		*D=3:ON[Display1 ON]
+		*C1.11=@V[1]:1[Video to Window 1]
+		*C1.15=@V[2]:1[DSP Audio]
+</function>
+
+<function id=01.152 group=10 icon="" name="Display Route" mode=1 hide=1>
+<context sub=90 name="Display_Destination" timeout="10000">
+	<button id=1 name="Window 1">
+		*D=3:ON[Display1 ON]
+		*C1.11=@V[1]:1[Video to Window 1]
+		*C1.15=@V[2]:1[DSP Audio]
+	</button>
+	<button id=2 name="Window 2">
+		*D=3:ON[Display2 ON]
+		*C1.11=@V[1]:2[Video to Window 2]
+		*C1.15=@V[2]:1[DSP Audio]
+	</button>
+</context>	
+</function>
+
+<function id=01.153 group=10 icon="" name="Display Route" mode=1 hide=1>
+<context sub=90 name="Display_Destination" timeout="10000">
+	<button id=1 name="Window 1">
+		*D=3:ON[Display1 ON]
+		*C1.11=@V[1]:1[Video to Window 1]
+		*C1.15=@V[2]:1[DSP Audio]
+	</button>
+	<button id=2 name="Window 2">
+		*D=3:ON[Display2 ON]
+		*C1.11=@V[1]:2[Video to Window 2]
+		*C1.15=@V[2]:1[DSP Audio]
+	</button>
+	<button id=3 name="Window 3">
+		*D=3:ON[Display2 ON]
+		*C1.11=@V[1]:3[Video to Window 3]
+		*C1.15=@V[2]:1[DSP Audio]
+	</button>
+</context>	
+</function>
+
+<function id=01.154 group=10 icon="" name="Schedule On" mode=1 hide=1>
+	*D=3:ON[Display1 ON]
+	*D=3:1[Barco to Layout1]
+	*C1.11=3:1[Video to Window 1]
+	*C1.15=8:1[DSP Audio]	
+	*C1.31=1:1[DSP Set Snapshot 1 to Index 1 SnapshotSystemStart]	
+</function>
